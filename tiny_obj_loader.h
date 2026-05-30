@@ -23,6 +23,8 @@ THE SOFTWARE.
 */
 
 //
+// nollm version 2.0.1 : Fixed some warnings as reported by cppcheck (2.20 --std=c++23)
+// fork tinyobjloader-nollm
 // version 2.0.0 : Add new object oriented API. 1.x API is still provided.
 //                 * Add python binding.
 //                 * Support line primitive.
@@ -289,25 +291,25 @@ struct material_t {
     return values;
   }
 
-  void SetDiffuse(std::array<double, 3> &a) {
+  void SetDiffuse(const std::array<double, 3> &a) {
     diffuse[0] = real_t(a[0]);
     diffuse[1] = real_t(a[1]);
     diffuse[2] = real_t(a[2]);
   }
 
-  void SetAmbient(std::array<double, 3> &a) {
+  void SetAmbient(const std::array<double, 3> &a) {
     ambient[0] = real_t(a[0]);
     ambient[1] = real_t(a[1]);
     ambient[2] = real_t(a[2]);
   }
 
-  void SetSpecular(std::array<double, 3> &a) {
+  void SetSpecular(const std::array<double, 3> &a) {
     specular[0] = real_t(a[0]);
     specular[1] = real_t(a[1]);
     specular[2] = real_t(a[2]);
   }
 
-  void SetTransmittance(std::array<double, 3> &a) {
+  void SetTransmittance(const std::array<double, 3> &a) {
     transmittance[0] = real_t(a[0]);
     transmittance[1] = real_t(a[1]);
     transmittance[2] = real_t(a[2]);
@@ -1475,11 +1477,11 @@ inline real_t dot(const TinyObjPoint &v1, const TinyObjPoint &v2) {
   return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-inline real_t GetLength(TinyObjPoint &e) {
+inline real_t GetLength(const TinyObjPoint &e) {
   return std::sqrt(e.x * e.x + e.y * e.y + e.z * e.z);
 }
 
-inline TinyObjPoint Normalize(TinyObjPoint e) {
+inline TinyObjPoint Normalize(const TinyObjPoint &e) {
   real_t inv_length = real_t(1) / GetLength(e);
   return TinyObjPoint(e.x * inv_length, e.y * inv_length, e.z * inv_length);
 }
@@ -1860,16 +1862,16 @@ static bool exportGroupsToShape(shape_t *shape, const PrimGroup &prim_group,
             real_t e0y = vy[1] - vy[0];
             real_t e1x = vx[2] - vx[1];
             real_t e1y = vy[2] - vy[1];
-            real_t cross = e0x * e1y - e0y * e1x;
+            real_t local_cross = e0x * e1y - e0y * e1x;
             // std::cout << "axes = " << axes[0] << ", " << axes[1] << "\n";
             // std::cout << "e0x, e0y, e1x, e1y " << e0x << ", " << e0y << ", "
             // << e1x << ", " << e1y << "\n";
 
             real_t area =
                 (vx[0] * vy[1] - vy[0] * vx[1]) * static_cast<real_t>(0.5);
-            // std::cout << "cross " << cross << ", area " << area << "\n";
+            // std::cout << "cross " << local_cross << ", area " << area << "\n";
             // if an internal angle
-            if (cross * area < static_cast<real_t>(0.0)) {
+            if (local_cross * area < static_cast<real_t>(0.0)) {
               // std::cout << "internal \n";
               guess_vert += 1;
               // std::cout << "guess vert : " << guess_vert << "\n";
@@ -2104,7 +2106,11 @@ void LoadMtl(std::map<std::string, int> *material_map,
 
     // Trim trailing whitespace.
     if (linebuf.size() > 0) {
-      linebuf = linebuf.substr(0, linebuf.find_last_not_of(" \t") + 1);
+      size_t last_whitespace = linebuf.find_last_not_of(" \t");
+      if (last_whitespace != std::string::npos)
+        linebuf.resize(last_whitespace + 1);
+      else
+        linebuf.clear();
     }
 
     // Trim newline '\r\n' or '\n'
