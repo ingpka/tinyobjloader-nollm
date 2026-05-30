@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(tinyobjloader CXX)
 set(TINYOBJLOADER_SOVERSION 2)
-set(TINYOBJLOADER_VERSION 2.0.1)
+set(TINYOBJLOADER_VERSION 2.1.0-dev)
 set(PY_TARGET "pytinyobjloader")
 
 #optional double precision support
