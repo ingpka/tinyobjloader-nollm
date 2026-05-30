@@ -23,6 +23,7 @@ THE SOFTWARE.
 */
 
 //
+// nollm version 2.1.0
 // nollm version 2.0.1 : Fixed some warnings as reported by cppcheck (2.20 --std=c++23)
 // fork tinyobjloader-nollm
 // version 2.0.0 : Add new object oriented API. 1.x API is still provided.
@@ -853,15 +854,12 @@ static inline bool fixIndex(int idx, int n, int *ret, bool allow_zero,
     return allow_zero;
   }
 
-  if (idx < 0) {
-    (*ret) = n + idx;  // negative value = relative
-    if ((*ret) < 0) {
-      return false;  // invalid relative index
-    }
-    return true;
+  assert(idx < 0);
+  (*ret) = n + idx;  // negative value = relative
+  if ((*ret) < 0) {
+    return false;  // invalid relative index
   }
-
-  return false;  // never reach here.
+  return true;
 }
 
 static inline std::string parseString(const char **token) {
