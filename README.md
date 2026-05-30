@@ -1,12 +1,14 @@
-# tinyobjloader
+# tinyobjloader without LLM contributions ("AI")
 
-[![PyPI version](https://badge.fury.io/py/tinyobjloader.svg)](https://badge.fury.io/py/tinyobjloader)
+This fork is based off upstream a285d14032202d07a210f98176fe4e9021b39c19 , which is the last commit before the author(s) let LLM-based tooling take the wheel.
 
-[![AZ Build Status](https://dev.azure.com/tinyobjloader/tinyobjloader/_apis/build/status/tinyobjloader.tinyobjloader?branchName=master)](https://dev.azure.com/tinyobjloader/tinyobjloader/_build/latest?definitionId=1&branchName=master)
+The last non-LLM version, straight from the original creators with no changes from me, is available as Release 2.0.0.
 
-[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/m6wfkvket7gth8wn/branch/master?svg=true)](https://ci.appveyor.com/project/syoyo/tinyobjloader-6e4qf/branch/master)
+![Stop GenAI!](images/stop_gen_ai.png)
 
-[![AUR version](https://img.shields.io/aur/version/tinyobjloader?logo=arch-linux)](https://aur.archlinux.org/packages/tinyobjloader)
+*Anti-AI stamp designed by RoninYorch*
+
+Below is the original README sans Build status indicators.
 
 Tiny but powerful single file wavefront obj loader written in C++03. No dependency except for C++ STL. It can parse over 10M polygons with moderate memory and time.
 

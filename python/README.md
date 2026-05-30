@@ -62,7 +62,7 @@ for shape in shapes:
 
 Please take a look at `python/sample.py` file in tinyobjloader git repo.
 
-https://github.com/syoyo/tinyobjloader/blob/master/python/sample.py
+https://github.com/ingpka/tinyobjloader-nollm/blob/master/python/sample.py
 
 ## How to build
 

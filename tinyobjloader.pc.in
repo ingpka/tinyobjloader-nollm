@@ -8,8 +8,8 @@ libdir=${prefix}/@TINYOBJLOADER_LIBRARY_DIR@
 includedir=${prefix}/@TINYOBJLOADER_INCLUDE_DIR@
 
 Name: @PROJECT_NAME@
-Description: Tiny but powerful single file wavefront obj loader
-URL: https://syoyo.github.io/tinyobjloader/
+Description: tinyobjloader without LLM contributions
+URL: https://github.com/ingpka/tinyobjloader-nollm
 Version: @TINYOBJLOADER_VERSION@
 Libs: -L${libdir} -l@LIBRARY_NAME@
 Cflags: -I${includedir}
